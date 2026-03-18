@@ -1,7 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counterstructure</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Courier New', monospace; 
+            background: #0a0a0a; 
+            color: #00ff41; 
+            min-height: 100vh; 
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        header { 
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%); 
+            padding: 100px 40px 80px; 
+            text-align: center; 
+            border-bottom: 3px solid #00ff41;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0,255,65,0.3);
+        }
+        header::before {
+            content: ''; 
+            position: absolute; 
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0,255,65,0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0,255,65,0.15) 0%, transparent 50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+        h1 { 
+            font-size: 4em; 
+            font-weight: 900; 
+            text-shadow: 0 0 30px #00ff41, 0 0 60px #00ff41; 
+            position: relative; 
+            letter-spacing: 0.15em;
+            animation: glitch 3s infinite;
+        }
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            10% { transform: translate(-2px, 2px); }
+            20% { transform: translate(2px, -2px); }
+            30% { transform: translate(-1px, 1px); }
+        }
+        .tagline { 
+            font-size: 1.4em; 
+            opacity: 0.85; 
+            margin-top: 20px; 
+            letter-spacing: 0.08em;
+            text-shadow: 0 0 15px #00ff41;
+        }
+        section { 
+            max-width: 1000px; 
+            margin: 80px auto; 
+            padding: 0 40px;
+        }
+        h2 { 
+            font-size: 2.2em; 
+            margin-bottom: 60px; 
+            color: #00ff41; 
+            text-align: center;
+            text-shadow: 0 0 20px #00ff41;
+            position: relative;
+        }
+        h2::after {
+            content: ''; 
+            position: absolute; 
+            bottom: -10px; 
+            left: 50%; 
+            transform: translateX(-50%);
+            width: 100px; height: 2px; 
+            background: #00ff41;
+            box-shadow: 0 0 10px #00ff41;
+        }
+        ul { 
+            list-style: none; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
+            gap: 35px;
+            max-width: 1200px; margin: 0 auto;
+        }
+        li { 
+            background: rgba(26,26,26,0.9); 
+            border: 2px solid #00ff41; 
+            padding: 40px 30px; 
+            border-radius: 12px; 
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        li::before {
+            content: '>'; 
+            position: absolute; 
+            top: 25px; 
+            right: 25px;
+            color: #00ff41; 
+            font-size: 1.8em; 
+            opacity: 0.7;
+            font-weight: bold;
+        }
+        li::after {
+            content: ''; 
+            position: absolute; 
+            top: 0; left: 0; 
+            right: 0; bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(0,255,65,0.05) 50%, transparent 100%);
+            transform: translateX(-100%); 
+            transition: transform 0.6s;
+        }
+        li:hover { 
+            background: rgba(0,30,0,0.95); 
+            border-color: #00ff41; 
+            box-shadow: 0 20px 60px rgba(0,255,65,0.4);
+            transform: translateY(-12px) scale(1.02);
+        }
+        li:hover::after {
+            transform: translateX(100%);
+        }
+        li a { 
+            color: #b0ffb0; 
+            text-decoration: none; 
+            font-size: 1.25em; 
+            display: block;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+            line-height: 1.5;
+        }
+        li:hover a { 
+            color: #00ff41; 
+            text-shadow: 0 0 15px #00ff41;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+            ul { grid-template-columns: 1fr; gap: 25px; }
+            li { padding: 30px 25px; }
+        }
+    </style>
+</head>
 <body>
     <header>
-        <h1>Counter Structure</h1>
-        <p class="tagline">Microstructure Threat Counter Intelligence </p>
+        <h1>Counterstructure</h1>
+        <p class="tagline">Microstructure threat intelligence for solo traders</p>
     </header>
     
     <section>
@@ -14,3 +161,4 @@
         </ul>
     </section>
 </body>
+</html>
