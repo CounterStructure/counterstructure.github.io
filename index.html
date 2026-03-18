@@ -35,15 +35,57 @@
             0%, 100% { opacity: 0.5; transform: scale(1); }
             50% { opacity: 1; transform: scale(1.02); }
         }
+        .title-container {
+            position: relative;
+            display: inline-block;
+        }
         h1 { 
             font-size: 4em; 
             font-weight: 900; 
-            text-shadow: 0 0 30px #00ff41, 0 0 60px #00ff41; 
+            background: linear-gradient(45deg, #00d4ff, #0099ff, #00d4ff);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             position: relative; 
             letter-spacing: 0.15em;
-            animation: glitch 3s infinite;
+            animation: scanline 2.5s ease-in-out infinite;
         }
-        animation: breathe 4s ease-in-out infinite;
+        h1::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #00d4ff, #00d4ff, transparent);
+            background-size: 200% 100%;
+            animation: scan 2.5s linear infinite;
+            box-shadow: 0 0 20px #00d4ff;
+        }
+        @keyframes scan {
+            0% { transform: translateX(-100%); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(100%); opacity: 0; }
+        }
+        @keyframes scanline {
+            0%, 100% { 
+                background-position: 0% 50%;
+                filter: hue-rotate(0deg) drop-shadow(0 0 30px #00d4ff);
+            }
+            25% { 
+                background-position: 100% 50%;
+                filter: hue-rotate(90deg) drop-shadow(0 0 40px #00d4ff);
+            }
+            50% { 
+                background-position: 100% 100%;
+                filter: hue-rotate(180deg) drop-shadow(0 0 50px #00d4ff);
+            }
+            75% { 
+                background-position: 0% 100%;
+                filter: hue-rotate(270deg) drop-shadow(0 0 40px #00d4ff);
+            }
         }
         .tagline { 
             font-size: 1.4em; 
@@ -143,8 +185,10 @@
 </head>
 <body>
     <header>
-        <h1>Counter Structure</h1>
-        <p class="tagline">HFT/BOT/ALGO/AI Counter Intelligence</p>
+        <div class="title-container">
+            <h1>Counterstructure</h1>
+        </div>
+        <p class="tagline">Microstructure threat intelligence for solo traders</p>
     </header>
     
     <section>
