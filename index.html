@@ -1,198 +1,421 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Counterstructure</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Courier New', monospace; 
-            background: #0a0a0a; 
-            color: #00ff41; 
-            min-height: 100vh; 
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-        header { 
-            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%); 
-            padding: 100px 40px 80px; 
-            text-align: center; 
-            border-bottom: 3px solid #00ff41;
-            position: relative;
-            box-shadow: 0 10px 40px rgba(0,255,65,0.3);
-            overflow: hidden;
-        }
-        .scan-container {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        h1 { 
-            font-size: 4em; 
-            font-weight: 900; 
-            color: #00d4ff;
-            letter-spacing: 0.15em;
-            position: relative;
-            text-shadow: 0 0 30px #00d4ff;
-            padding: 20px 0;
-        }
-        .barcode-scan {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(0,212,255,0.9) 2%, 
-                rgba(0,212,255,0.7) 4%, 
-                transparent 6%);
-            transform: translateX(-100%);
-            animation: barcodeScan 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
-            mix-blend-mode: screen;
-            height: 100%;
-            z-index: 2;
-        }
-        @keyframes barcodeScan {
-            0% { transform: translateX(-100%); opacity: 0; }
-            5% { opacity: 1; }
-            25% { transform: translateX(100%); }
-            30%, 100% { transform: translateX(100%); opacity: 0; }
-        }
-        .scan-lines {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: 
-                repeating-linear-gradient(90deg, 
-                    transparent 0px, 
-                    rgba(0,255,65,0.1) 2px, 
-                    transparent 4px),
-                repeating-linear-gradient(0deg, 
-                    transparent 0px, 
-                    rgba(0,212,255,0.05) 1px, 
-                    transparent 2px);
-            animation: scanLines 3s linear infinite;
-            pointer-events: none;
-        }
-        @keyframes scanLines {
-            0% { transform: translateX(-20px); }
-            100% { transform: translateX(20px); }
-        }
-        .tagline { 
-            font-size: 1.4em; 
-            opacity: 0.85; 
-            margin-top: 25px; 
-            letter-spacing: 0.08em;
-            text-shadow: 0 0 15px #00ff41;
-            position: relative;
-            z-index: 3;
-        }
-        section { 
-            max-width: 1000px; 
-            margin: 80px auto; 
-            padding: 0 40px;
-        }
-        h2 { 
-            font-size: 2.2em; 
-            margin-bottom: 60px; 
-            color: #00ff41; 
-            text-align: center;
-            text-shadow: 0 0 20px #00ff41;
-            position: relative;
-        }
-        h2::after {
-            content: ''; 
-            position: absolute; 
-            bottom: -10px; 
-            left: 50%; 
-            transform: translateX(-50%);
-            width: 100px; height: 2px; 
-            background: #00ff41;
-            box-shadow: 0 0 10px #00ff41;
-        }
-        ul { 
-            list-style: none; 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
-            gap: 35px;
-            max-width: 1200px; margin: 0 auto;
-        }
-        li { 
-            background: rgba(26,26,26,0.9); 
-            border: 2px solid #00ff41; 
-            padding: 40px 30px; 
-            border-radius: 12px; 
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-        li::before {
-            content: '>'; 
-            position: absolute; 
-            top: 25px; 
-            right: 25px;
-            color: #00ff41; 
-            font-size: 1.8em; 
-            opacity: 0.7;
-            font-weight: bold;
-        }
-        li::after {
-            content: ''; 
-            position: absolute; 
-            top: 0; left: 0; 
-            right: 0; bottom: 0;
-            background: linear-gradient(135deg, transparent 0%, rgba(0,255,65,0.05) 50%, transparent 100%);
-            transform: translateX(-100%); 
-            transition: transform 0.6s;
-        }
-        li:hover { 
-            background: rgba(0,30,0,0.95); 
-            border-color: #00ff41; 
-            box-shadow: 0 20px 60px rgba(0,255,65,0.4);
-            transform: translateY(-12px) scale(1.02);
-        }
-        li:hover::after {
-            transform: translateX(100%);
-        }
-        li a { 
-            color: #b0ffb0; 
-            text-decoration: none; 
-            font-size: 1.25em; 
-            display: block;
-            position: relative;
-            z-index: 2;
-            transition: all 0.3s ease;
-            line-height: 1.5;
-        }
-        li:hover a { 
-            color: #00ff41; 
-            text-shadow: 0 0 15px #00ff41;
-        }
-        @media (max-width: 768px) {
-            h1 { font-size: 2.8em; }
-            ul { grid-template-columns: 1fr; gap: 25px; }
-            li { padding: 30px 25px; }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SYSTEM_TERMINAL // QUANT_SPEC</title>
+  
+  <!-- Fonts: Monospace for technical density & Inter for clean text -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- COLOR PALETTE & SYSTEM VARIABLES --- */
+    :root {
+      --bg-color: #080a0f;
+      --panel-bg: rgba(15, 20, 28, 0.85);
+      --panel-border: #1e2638;
+      --accent-cyan: #00f0ff;
+      --accent-green: #00ff88;
+      --accent-amber: #ffb000;
+      --text-main: #c3cdde;
+      --text-muted: #5a667a;
+      --text-bright: #ffffff;
+      --font-mono: 'Fira Code', monospace;
+      --font-sans: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.6;
+      /* Subtle grid background effect */
+      background-image: 
+        linear-gradient(rgba(30, 38, 56, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30, 38, 56, 0.2) 1px, transparent 1px);
+      background-size: 30px 30px;
+      padding-top: 40px; /* Offset for fixed top bar */
+    }
+
+    /* --- TOP HUD BAR --- */
+    .top-hud {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 35px;
+      background: #040508;
+      border-bottom: 1px solid var(--panel-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+      font-size: 11px;
+    }
+
+    .hud-status {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .indicator-dot {
+      width: 7px;
+      height: 7px;
+      background-color: var(--accent-green);
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 8px var(--accent-green);
+    }
+
+    .cyan-text { color: var(--accent-cyan); }
+    .green-text { color: var(--accent-green); }
+    .amber-text { color: var(--accent-amber); }
+    .muted-text { color: var(--text-muted); }
+
+    /* --- LAYOUT GRID --- */
+    .container {
+      max-width: 1280px;
+      margin: 20px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .container { grid-template-columns: 1fr; }
+    }
+
+    /* --- PANELS & CARDS --- */
+    .panel {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 2px;
+      padding: 20px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(5px);
+      position: relative;
+    }
+
+    /* Decorative panel corner notch */
+    .panel::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 0; height: 0;
+      border-style: solid;
+      border-width: 0 10px 10px 0;
+      border-color: transparent var(--accent-cyan) transparent transparent;
+    }
+
+    .panel-header {
+      border-bottom: 1px dashed var(--panel-border);
+      padding-bottom: 8px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--text-bright);
+    }
+
+    /* --- CONTENT STYLING --- */
+    h1, h2, h3 {
+      color: var(--text-bright);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .prose {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-main);
+    }
+
+    .prose p { margin-bottom: 15px; }
+
+    .img-placeholder {
+      width: 100%;
+      height: 280px;
+      background: #0d121c;
+      border: 1px dashed var(--accent-cyan);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-cyan);
+      margin: 15px 0;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .img-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* --- DATA TABLES / MATRICES --- */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .data-table td {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(30, 38, 56, 0.5);
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+
+    /* --- CODE / SPEC BLOCKS --- */
+    .code-block {
+      background: #040508;
+      border-left: 2px solid var(--accent-cyan);
+      padding: 12px;
+      font-size: 11px;
+      margin: 10px 0;
+      overflow-x: auto;
+    }
+
+    /* --- TAGS & CHIPS --- */
+    .tag {
+      display: inline-block;
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid var(--accent-cyan);
+      color: var(--accent-cyan);
+      padding: 2px 6px;
+      font-size: 10px;
+      border-radius: 2px;
+      margin-right: 5px;
+      margin-bottom: 5px;
+    }
+
+    .tag-amber {
+      background: rgba(255, 176, 0, 0.1);
+      border-color: var(--accent-amber);
+      color: var(--accent-amber);
+    }
+
+    /* --- BOOK LIST STYLING --- */
+    .library-item {
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--panel-border);
+    }
+
+    .library-item:last-child { border-bottom: none; }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="scan-container">
-            <div class="barcode-scan"></div>
-            <div class="scan-lines"></div>
-            <h1>Counter Structure</h1>
-            <p class="tagline">HFT/BOT/ALGO/AI Counter Intellegence</p>
+
+  <!-- FIXED TOP HUD BAR -->
+  <div class="top-hud">
+    <div class="hud-status">
+      <span><span class="indicator-dot"></span> <span class="green-text">SYSTEM: ONLINE</span></span>
+      <span class="muted-text">|</span>
+      <span>NODE: <span class="cyan-text">MX-CENTRAL</span></span>
+      <span class="muted-text">|</span>
+      <span>CLEARANCE: <span class="amber-text">LEVEL 4</span></span>
+    </div>
+    <div>
+      <span class="muted-text">LATENCY: 14ms // </span>
+      <span class="cyan-text">PROPRIETARY ARCHITECTURE</span>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- LEFT COLUMN: SYSTEM WHITE PAPER & DIAGRAMS -->
+    <main>
+
+      <!-- HERO / SYSTEM DIAGRAM PANEL -->
+      <section class="panel">
+        <div class="panel-header">
+          <span class="panel-title">// SYSTEM ARCHITECTURE DIAGRAM</span>
+          <span class="muted-text">FIG_01.3</span>
         </div>
-    </header>
-    
-    <section>
-        <h2>Research Areas</h2>
-        <ul>
-            <li><a href="toxicity.html">Core Project</a></li>
-            <li><a href="spoofing.html">Quote stuffing & spoofing patterns</a></li>
-            <li><a href="latency.html">Latency arbitrage threat models</a></li>
-            <li><a href="fragmentation.html">Fragmentation risk analysis</a></li>
-        </ul>
-    </section>
+        
+        <p class="muted-text" style="font-size: 11px;">
+          Multi-Timeframe Equilibrium & Structural Volatility Fade Model
+        </p>
+
+        <!-- REPLACE THIS PLACEHOLDER WITH YOUR IMAGE -->
+        <!-- Example: <div class="img-placeholder"><img src="your-diagram.png" alt="System Visual"></div> -->
+        <div class="img-placeholder">
+          <p>[ INSERT YOUR ARCHITECTURE DIAGRAM HERE ]</p>
+          <p class="muted-text" style="font-size: 10px; margin-top: 5px;">Replace this &lt;div&gt; with your &lt;img src="path/to/image.png"&gt;</p>
+        </div>
+
+        <div class="code-block">
+          <code>&gt; SYSTEM_STATUS: Executing liquidity capture across high-volatility pairs. Rules-based parameters active. Zero manual discretion.</code>
+        </div>
+      </section>
+
+      <!-- WHITE PAPER / SYSTEM METHODOLOGY -->
+      <section class="panel">
+        <div class="panel-header">
+          <span class="panel-title">// SPECIFICATION: EXECUTION CORE</span>
+          <span class="muted-text">WHITE_PAPER_V2</span>
+        </div>
+
+        <div class="prose">
+          <h3>1.0 System Philosophy & Microstructure</h3>
+          <p>
+            This system operates on the principle of dynamic structural overextension. Rather than predicting long-term price action, the architecture isolates extreme liquidity imbalances on ultra-low timeframes (1M/15M) aligned with macro equilibrium zones (4H/1D).
+          </p>
+
+          <h3>2.0 Multi-Timeframe Confluence Framework</h3>
+          <p>
+            Trade execution occurs exclusively when three distinct structural layers align:
+          </p>
+          <ul>
+            <li style="margin-left: 20px; margin-bottom: 5px;">
+              <strong class="cyan-text">Macro Alignment (Daily/4H):</strong> Identifies equilibrium boundaries via Cloud structures and volume profile nodes.
+            </li>
+            <li style="margin-left: 20px; margin-bottom: 5px;">
+              <strong class="cyan-text">Intermediate Momentum (1H):</strong> Verifies trend exhaustion and momentum divergence via RSI matrix.
+            </li>
+            <li style="margin-left: 20px; margin-bottom: 15px;">
+              <strong class="cyan-text">Tactical Execution (1M/15M):</strong> Captures immediate order book spikes and volatility fades.
+            </li>
+          </ul>
+
+          <h3>3.0 Risk Mitigation Protocol</h3>
+          <p>
+            Capital preservation overrides signal frequency. Position sizing is calculated dynamically using predefined mathematical drawdown limits. All invalidation criteria are defined prior to order entry.
+          </p>
+        </div>
+      </section>
+
+      <!-- KNOWLEDGE VAULT / READING LIST -->
+      <section class="panel">
+        <div class="panel-header">
+          <span class="panel-title">// KNOWLEDGE VAULT: RESEARCH & SYLLABUS</span>
+          <span class="muted-text">INDEX_NEXUS</span>
+        </div>
+
+        <div class="library-item">
+          <span class="tag">MICROSTRUCTURE</span>
+          <strong class="text-bright">Trading and Exchanges: Market Microstructure for Practitioners</strong> 
+          <span class="muted-text">— Larry Harris</span>
+          <p class="muted-text" style="font-size: 11px; margin-top: 4px;">
+            Key Takeaway: Understanding order types, market makers, and how liquidity drives short-term price movement.
+          </p>
+        </div>
+
+        <div class="library-item">
+          <span class="tag tag-amber">TECHNICAL ANALYSIS</span>
+          <strong class="text-bright">Technical Analysis of the Financial Markets</strong> 
+          <span class="muted-text">— John J. Murphy</span>
+          <p class="muted-text" style="font-size: 11px; margin-top: 4px;">
+            Key Takeaway: Foundational visual chart dynamics, volume studies, and classical trend analysis.
+          </p>
+        </div>
+
+        <div class="library-item">
+          <span class="tag">PSYCHOLOGY & RISK</span>
+          <strong class="text-bright">The System Driven Trader</strong> 
+          <span class="muted-text">— Research Text</span>
+          <p class="muted-text" style="font-size: 11px; margin-top: 4px;">
+            Key Takeaway: Eliminating emotional variance through automated execution protocols.
+          </p>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- RIGHT COLUMN: OPERATOR DOSSIER & SIDEBAR METRICS -->
+    <aside>
+
+      <!-- OPERATOR DOSSIER (REDACTED LINKEDIN) -->
+      <section class="panel">
+        <div class="panel-header">
+          <span class="panel-title">// OPERATOR DOSSIER</span>
+          <span class="amber-text">REDACTED</span>
+        </div>
+
+        <table class="data-table">
+          <tr>
+            <td class="muted-text">DESIGNATION:</td>
+            <td class="cyan-text">OPERATOR_01</td>
+          </tr>
+          <tr>
+            <td class="muted-text">LOCATION:</td>
+            <td>[ REDACTED / DECENTRALIZED ]</td>
+          </tr>
+          <tr>
+            <td class="muted-text">SPECIALIZATION:</td>
+            <td>Perpetual Futures / Volatility Fades</td>
+          </tr>
+          <tr>
+            <td class="muted-text">ACREDITATION:</td>
+            <td>CMT Formal Technical Foundations</td>
+          </tr>
+          <tr>
+            <td class="muted-text">EXECUTION:</td>
+            <td><span class="green-text">100% Rules-Based</span></td>
+          </tr>
+        </table>
+      </section>
+
+      <!-- SYSTEM MATRIX WIDGET -->
+      <section class="panel">
+        <div class="panel-header">
+          <span class="panel-title">// RISK & SYSTEM PARAMETERS</span>
+        </div>
+
+        <div class="code-block" style="color: var(--accent-green);">
+{
+  "Risk_Per_Trade": "STRICT_MAX",
+  "Primary_Indicators": [
+    "Ichimoku_Cloud",
+    "RSI_Divergence",
+    "Volume_Profile"
+  ],
+  "Timeframe_Matrix": ["1D", "4H", "1H", "1M"],
+  "Bias": "Systematic_Neutral"
+}
+        </div>
+      </section>
+
+      <!-- INSTAGRAM / EXTERNAL FEED LINK -->
+      <section class="panel">
+        <div class="panel-header">
+          <span class="panel-title">// EXTERNAL NETWORKS</span>
+        </div>
+        <p class="muted-text" style="font-size: 11px; margin-bottom: 12px;">
+          Public updates and personal logs routed through verified channels:
+        </p>
+        
+        <!-- REPLACE YOUR_INSTAGRAM_HANDLE WITH YOUR ACTUAL IG -->
+        <a href="https://instagram.com/YOUR_INSTAGRAM_HANDLE" target="_blank" style="color: var(--accent-cyan); text-decoration: none; font-weight: bold; font-size: 12px;">
+          &gt; CONNECT_INSTAGRAM [↗]
+        </a>
+      </section>
+
+    </aside>
+
+  </div>
+
 </body>
 </html>
-
