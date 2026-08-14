@@ -153,22 +153,22 @@
 
     .img-placeholder {
       width: 100%;
-      height: 280px;
+      min-height: 280px;
       background: #0d121c;
       border: 1px dashed var(--accent-cyan);
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: var(--accent-cyan);
       margin: 15px 0;
       border-radius: 2px;
       overflow: hidden;
     }
 
-   <div class="img-placeholder">
-          <img src="SystemGemini_Generated_Image_.png" alt="System Architecture Diagram">
-        </div>
+    .img-placeholder img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
     }
 
     /* --- DATA TABLES / MATRICES --- */
@@ -232,7 +232,6 @@
       <span><span class="indicator-dot"></span> <span class="green-text">SYSTEM: ONLINE</span></span>
       <span class="muted-text">|</span>
       <span>NODE: <span class="cyan-text">MX-CENTRAL</span></span>
-      <span class="muted-text">|</span>
     </div>
     <div>
       <span class="muted-text">LATENCY: 14ms // </span>
@@ -256,11 +255,9 @@
           Multi-Timeframe Equilibrium & Structural Volatility Fade Model
         </p>
 
-        <!-- REPLACE THIS PLACEHOLDER WITH YOUR IMAGE -->
-        <!-- Example: <div class="img-placeholder"><img src="your-diagram.png" alt="System Visual"></div> -->
+        <!-- SYSTEM DIAGRAM IMAGE -->
         <div class="img-placeholder">
-          <p>[ INSERT YOUR ARCHITECTURE DIAGRAM HERE ]</p>
-          <p class="muted-text" style="font-size: 10px; margin-top: 5px;">Replace this &lt;div&gt; with your &lt;img src="path/to/image.png"&gt;</p>
+          <img src="SystemGemini_Generated_Image_.png" alt="System Architecture Diagram">
         </div>
 
         <div class="code-block">
@@ -304,7 +301,7 @@
         </div>
       </section>
 
-     <!-- KNOWLEDGE VAULT / READING LIST -->
+      <!-- KNOWLEDGE VAULT / READING LIST -->
       <section class="panel">
         <div class="panel-header">
           <span class="panel-title">// KNOWLEDGE VAULT: RESEARCH & SYLLABUS</span>
@@ -372,6 +369,7 @@
         </div>
 
       </section>
+
     </main>
 
     <!-- RIGHT COLUMN: OPERATOR DOSSIER & SIDEBAR METRICS -->
@@ -398,7 +396,7 @@
             <td>Perpetual Futures / Volatility Fades</td>
           </tr>
           <tr>
-            <td class="muted-text">ACREDITATION:</td>
+            <td class="muted-text">ACCREDITATION:</td>
             <td>CMT Formal Technical Foundations</td>
           </tr>
           <tr>
@@ -426,15 +424,6 @@
   "Bias": "Systematic_Neutral"
 }
         </div>
-      </section>
-
-    
-        </div>
-        <p class="muted-text" style="font-size: 11px; margin-bottom: 12px;">
-          Public updates and personal logs routed through verified channels:
-        </p>
-        
-        </a>
       </section>
 
     </aside>
